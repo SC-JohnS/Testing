@@ -42,8 +42,11 @@ public class Error_Handler {
         Boolean debug = debugParams.debug;
         Boolean profile = debugParams.profile;
 
+        if (debug) Util_Debug.debugMessage('Starting', debugParams);
+
         Exception_Helper.ExceptionHelper exceptionHelper;
 
+        if (debug) Util_Debug.debugMessage('Checking to write exception', debugParams);
         if (writeException) {
             // build an exception handler object and add it to the writeable exceptions
             exceptionHelper = Exception_Helper.addException(triggerHelper, message, e, new Debug(debugParams));
@@ -59,6 +62,7 @@ public class Error_Handler {
         if (debug) Util_Debug.debugMessage(exceptionMessage, debugParams);
 
         // add error message to trigger records
+        if (debug) Util_Debug.debugMessage('Adding error message to trigger records', debugParams);
         if (triggerHelper != null && triggerHelper.newObjects != null && triggerHelper.newObjects.isEmpty() == false) {
             Integer i = 0;
             for (sObject o : triggerHelper.newObjects) {
@@ -74,6 +78,7 @@ public class Error_Handler {
         }
 
         // return the exception error message
+        if (debug) Util_Debug.debugMessage('Complete', debugParams);
         return exceptionMessage;
     }
 
